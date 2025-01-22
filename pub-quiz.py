@@ -79,6 +79,13 @@ def main(stdscr):
                 stdscr.addstr(1, 2, f"You selected: {question["options"][current_selection]}")
                 if current_selection == question["answer_index"]:
                     stdscr.addstr(3, 2, f"That was right well done!")
+                    stdscr.addstr(5, 2, " _ ")
+                    stdscr.addstr(6, 2, "|n|")
+                    stdscr.addstr(7, 2, "| |____")
+                    stdscr.addstr(8, 2, "|  l___|")
+                    stdscr.addstr(9, 2, "|  l___|")
+                    stdscr.addstr(10, 2, "|__l___|")
+                    stdscr.addstr(11, 2, "")
                 else:
                     stdscr.addstr(3, 2, f"That was wrong! You lose")
                 stdscr.refresh()
