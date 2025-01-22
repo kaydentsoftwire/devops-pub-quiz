@@ -1,5 +1,9 @@
 # DevOps Pub Quiz++
 
+## Setup
+
+On Windows you'll need to run `pip install windows-curses`.
+
 ## Development
 
 ### Linting
