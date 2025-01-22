@@ -16,3 +16,9 @@ jobs:
         run: python -c "import sys; print(sys.version)"
       - name: lint
         uses: astral-sh/ruff-action@v3
+
+  random-fail:
+    steps:
+      - name: Fail 50% of the time
+        run: |
+          exit $RANDOM % 2
