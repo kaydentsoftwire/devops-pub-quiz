@@ -1,4 +1,6 @@
 import curses
+import math
+from time import sleep
 import time
 
 # List of questions, options, and answers
@@ -16,6 +18,42 @@ quiz_questions = [
     },
     # Learners can add more questions here following the same structure
 ]
+
+
+def show_thumbs_up(stdscr, answer):
+    duration_in_frames = 60
+
+    stdscr.addstr(1, 2, f"You selected: {answer}")
+
+    current_frame = 0
+
+    while current_frame < duration_in_frames:
+        stdscr.clear()
+        stdscr.addstr(3, 2, "That was right well done!"[max(25 - current_frame, 0) :])
+
+        if current_frame < 30:
+            stdscr.addstr(5, 2 + int(current_frame / 5), " _ ")
+            stdscr.addstr(6, 2 + int(current_frame / 5), "|n|")
+            stdscr.addstr(7, 2 + int(current_frame / 5), "| |____")
+            stdscr.addstr(8, 2 + int(current_frame / 5), "|  l___|")
+            stdscr.addstr(9, 2 + int(current_frame / 5), "|  l___|")
+            stdscr.addstr(10, 2 + int(current_frame / 5), "|__l___|")
+            stdscr.addstr(11, 2 + int(current_frame / 5), "")
+
+        else:
+            stdscr.addstr(5 + int(math.sin(current_frame) * 5), 2 + 6, " _ ")
+            stdscr.addstr(6 + int(math.sin(current_frame) * 5), 2 + 6, "|n|")
+            stdscr.addstr(7 + int(math.sin(current_frame) * 5), 2 + 6, "| |____")
+            stdscr.addstr(8 + int(math.sin(current_frame) * 5), 2 + 6, "|  l___|")
+            stdscr.addstr(9 + int(math.sin(current_frame) * 5), 2 + 6, "|  l___|")
+            stdscr.addstr(10 + int(math.sin(current_frame) * 5), 2 + 6, "|__l___|")
+            stdscr.addstr(11 + int(math.sin(current_frame) * 5), 2 + 6, "")
+
+        if current_frame > 20:
+            stdscr.addstr(15, 2, "Press any key to continue...")
+        current_frame += 1
+        sleep(0.05)
+        stdscr.refresh()
 
 
 def init_curses(stdscr):
@@ -87,14 +125,7 @@ def main(stdscr):
                     1, 2, f"You selected: {question['options'][current_selection]}"
                 )
                 if current_selection == question["answer_index"]:
-                    stdscr.addstr(3, 2, "That was right well done!")
-                    stdscr.addstr(5, 2, " _ ")
-                    stdscr.addstr(6, 2, "|n|")
-                    stdscr.addstr(7, 2, "| |____")
-                    stdscr.addstr(8, 2, "|  l___|")
-                    stdscr.addstr(9, 2, "|  l___|")
-                    stdscr.addstr(10, 2, "|__l___|")
-                    stdscr.addstr(11, 2, "")
+                    show_thumbs_up(stdscr, question["options"][current_selection])
                 else:
                     stdscr.addstr(3, 2, "That was wrong! You lose")
                 stdscr.refresh()
