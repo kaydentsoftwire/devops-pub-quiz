@@ -49,6 +49,11 @@ def main(stdscr):
 
     stdscr.nodelay(True)
 
+    curses.echo()
+    stdscr.addstr("Enter your name: ")
+    name = stdscr.getstr().decode("utf-8")
+    curses.noecho()
+
     # Loop through each question
     for question in quiz_questions:
         start = time.time()
@@ -94,8 +99,9 @@ def main(stdscr):
                 stdscr.addstr(
                     1, 2, f"You selected: {question['options'][current_selection]}"
                 )
+
                 if question["answer_index"] != "" and current_selection == question["answer_index"]:
-                    stdscr.addstr(3, 2, "That was right well done!")
+                    stdscr.addstr(3, 2, f"That was right {name} - well done!")
                     stdscr.addstr(5, 2, " _ ")
                     stdscr.addstr(6, 2, "|n|")
                     stdscr.addstr(7, 2, "| |____")
@@ -106,7 +112,7 @@ def main(stdscr):
                 elif question["results"] != []:
                     stdscr.addstr(3, 2, "Wrong. This is your favourite colour", curses.color_pair(3))    
                 else:
-                    stdscr.addstr(3, 2, "That was wrong! You lose")
+                    stdscr.addstr(3, 2, f"That was wrong {name}! You lose")
                 stdscr.refresh()
                 stdscr.nodelay(False)
                 stdscr.getch()
@@ -114,7 +120,7 @@ def main(stdscr):
 
             if "time_limit" in question and time_remaining < 0:
                 stdscr.clear()
-                stdscr.addstr(3, 2, "YOU LOSE!")
+                stdscr.addstr(3, 2, f"YOU LOSE {name.upper()}!")
                 stdscr.refresh()
                 stdscr.nodelay(False)
                 stdscr.getch()
