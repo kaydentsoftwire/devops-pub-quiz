@@ -25,18 +25,18 @@ def main(stdscr):
 
     # List of questions, options, and answers
     quiz_questions = [
-    {
-        "question": "What is the capital of France?",
-        "options": ["London", "Paris", "Berlin", "Madrid"],
-        "answer_index": 1
-    },
-    {
-        "question": "What is 2 + 2?",
-        "options": ["3", "4", "5", "22"],
-        "answer_index": 1,
-        "time_limit": 10
-    },
-    # Learners can add more questions here following the same structure
+        {
+            "question": "What is the capital of France?",
+            "options": ["London", "Paris", "Berlin", "Madrid"],
+            "answer_index": 1,
+        },
+        {
+            "question": "What is 2 + 2?",
+            "options": ["3", "4", "5", "22"],
+            "answer_index": 1,
+            "time_limit": 10,
+        },
+        # Learners can add more questions here following the same structure
     ]
 
     stdscr.nodelay(True)
@@ -51,9 +51,16 @@ def main(stdscr):
             stdscr.addstr(1, 2, question["question"], curses.A_BOLD)
 
             if "time_limit" in question:
-                seconds_elapsed = (time.time() - start)
-                time_remaining = int((int(question["time_limit"]) - seconds_elapsed) * 10) / 10.0
-                stdscr.addstr(3, 2, f"ANSWER THE QUESTION IN {time_remaining} SECONDS!", curses.color_pair(int(time_remaining*5) % 2))
+                seconds_elapsed = time.time() - start
+                time_remaining = (
+                    int((int(question["time_limit"]) - seconds_elapsed) * 10) / 10.0
+                )
+                stdscr.addstr(
+                    3,
+                    2,
+                    f"ANSWER THE QUESTION IN {time_remaining} SECONDS!",
+                    curses.color_pair(int(time_remaining * 5) % 2),
+                )
 
             # Display the answers
             for idx, answer in enumerate(question["options"]):
@@ -73,12 +80,14 @@ def main(stdscr):
                 current_selection = (current_selection - 1) % len(question["options"])
             elif key == curses.KEY_DOWN:
                 current_selection = (current_selection + 1) % len(question["options"])
-            elif key == ord('\n'):  # Enter key
+            elif key == ord("\n"):  # Enter key
                 # Display selected answer and exit
                 stdscr.clear()
-                stdscr.addstr(1, 2, f"You selected: {question["options"][current_selection]}")
+                stdscr.addstr(
+                    1, 2, f"You selected: {question['options'][current_selection]}"
+                )
                 if current_selection == question["answer_index"]:
-                    stdscr.addstr(3, 2, f"That was right well done!")
+                    stdscr.addstr(3, 2, "That was right well done!")
                     stdscr.addstr(5, 2, " _ ")
                     stdscr.addstr(6, 2, "|n|")
                     stdscr.addstr(7, 2, "| |____")
@@ -87,7 +96,7 @@ def main(stdscr):
                     stdscr.addstr(10, 2, "|__l___|")
                     stdscr.addstr(11, 2, "")
                 else:
-                    stdscr.addstr(3, 2, f"That was wrong! You lose")
+                    stdscr.addstr(3, 2, "That was wrong! You lose")
                 stdscr.refresh()
                 stdscr.nodelay(False)
                 stdscr.getch()
@@ -103,6 +112,7 @@ def main(stdscr):
 
         # Goodbye message
         print("Thanks for playing the Pub Quiz!")
+
 
 if __name__ == "__main__":
     curses.wrapper(main)
