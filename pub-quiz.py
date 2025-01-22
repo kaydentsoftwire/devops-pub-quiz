@@ -1,5 +1,6 @@
 import curses
 import time
+from utils import format_option
 
 # List of questions, options, and answers
 quiz_questions = [
@@ -63,11 +64,13 @@ def main(stdscr):
                 )
 
             # Display the answers
-            for idx, answer in enumerate(question["options"]):
-                if idx == current_selection:
-                    stdscr.addstr(5 + idx, 4, answer, curses.color_pair(1))
+            for index, option in enumerate(question["options"]):
+                if index == current_selection:
+                    stdscr.addstr(
+                        5 + index, 4, format_option(index, option), curses.color_pair(1)
+                    )
                 else:
-                    stdscr.addstr(5 + idx, 4, answer)
+                    stdscr.addstr(5 + index, 4, format_option(index, option))
 
             # Refresh the screen
             stdscr.refresh()
