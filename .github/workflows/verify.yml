@@ -1,0 +1,25 @@
+name: Python package
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13.x'
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+      - name: lint
+        uses: astral-sh/ruff-action@v3
+
+  random-fail:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail 10% of the time
+        run: |
+          exit $((($RANDOM % 10) == 0))
