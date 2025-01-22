@@ -1,26 +1,37 @@
+import string
+
+alphabet = list(string.ascii_uppercase)
+
 print("Welcome to the Pub Quiz!")
 
 quiz_questions = [
     {
         "question": "What is the capital of France?",
-        "options": ["A) London", "B) Paris", "C) Berlin", "D) Madrid"],
-        "answer": "B"
+        "options": ["London", "Paris", "Berlin", "Madrid"],
+        "answer": "Paris"
     },
     {
         "question": "What is 2 + 2?",
-        "options": ["A) 3", "B) 4", "C) 5", "D) 22"],
-        "answer": "B"
+        "options": ["3", "4", "5", "22"],
+        "answer": "4"
     },
 ]
 
 for question in quiz_questions:
     print(question["question"])
-    for option in question["options"]:
-        print(option)
+
+    optionsString = ""
+
+    for index, option in enumerate(question["options"]):
+        letter = alphabet[index % 26]
+        print(f"{letter}) {option}")
+        optionsString += f"{letter}, "
     
-    user_answer = input("Your answer (A, B, C, D): ").strip().upper() # Ensuring the input is uppercase for comparison
+    user_answer_letter = input(f"Your answer ({optionsString[:-2]}): ").strip().upper()
     
-    if user_answer == question["answer"]:
+    user_answer_index = alphabet.index(user_answer_letter)
+
+    if question["options"][user_answer_index] == question["answer"]:
         print("Correct!")
     else:
         print(f"Wrong! The correct answer was {question['answer']}.")
