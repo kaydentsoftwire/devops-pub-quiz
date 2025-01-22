@@ -1,4 +1,6 @@
 import curses
+import math
+from time import sleep
 import time
 from utils import format_option
 
@@ -19,12 +21,51 @@ quiz_questions = [
     },
     {
         "question": "What is your favourite colour?",
-        "options": ["A) blu", "B) yello", "C) purpl", "D) grey" ],
+        "options": ["A) blu", "B) yello", "C) purpl", "D) grey"],
         "answer_index": "",
         "results": ["exists"],
-    }
+    },
     # Learners can add more questions here following the same structure
 ]
+
+
+def show_thumbs_up(stdscr, answer, name):
+    duration_in_frames = 60
+
+    stdscr.addstr(1, 2, f"You selected: {answer}")
+
+    current_frame = 0
+
+    while current_frame < duration_in_frames:
+        stdscr.clear()
+        stdscr.addstr(
+            3, 2, f"That was right {name} -  well done!"[max(25 - current_frame, 0) :]
+        )
+
+        if current_frame < 30:
+            stdscr.addstr(5, 2 + int(current_frame / 5), " _ ")
+            stdscr.addstr(6, 2 + int(current_frame / 5), "|n|")
+            stdscr.addstr(7, 2 + int(current_frame / 5), "| |____")
+            stdscr.addstr(8, 2 + int(current_frame / 5), "|  l___|")
+            stdscr.addstr(9, 2 + int(current_frame / 5), "|  l___|")
+            stdscr.addstr(10, 2 + int(current_frame / 5), "|__l___|")
+            stdscr.addstr(11, 2 + int(current_frame / 5), "")
+
+        else:
+            stdscr.addstr(5 + int(math.sin(current_frame) * 5), 2 + 6, " _ ")
+            stdscr.addstr(6 + int(math.sin(current_frame) * 5), 2 + 6, "|n|")
+            stdscr.addstr(7 + int(math.sin(current_frame) * 5), 2 + 6, "| |____")
+            stdscr.addstr(8 + int(math.sin(current_frame) * 5), 2 + 6, "|  l___|")
+            stdscr.addstr(9 + int(math.sin(current_frame) * 5), 2 + 6, "|  l___|")
+            stdscr.addstr(10 + int(math.sin(current_frame) * 5), 2 + 6, "|__l___|")
+            stdscr.addstr(11 + int(math.sin(current_frame) * 5), 2 + 6, "")
+
+        if current_frame > 20:
+            stdscr.addstr(15, 2, "Press any key to continue...")
+        current_frame += 1
+        sleep(0.05)
+        stdscr.refresh()
+
 
 def init_curses(stdscr):
     # Disable cursor and enable color
@@ -48,7 +89,7 @@ def main(stdscr):
     stdscr.clear()
     stdscr.refresh()
 
-    stdscr.nodelay(True)
+    stdscr.nodelay(False)
 
     curses.echo()
     stdscr.addstr("Enter your name: ")
@@ -102,18 +143,18 @@ def main(stdscr):
                 stdscr.addstr(
                     1, 2, f"You selected: {question['options'][current_selection]}"
                 )
-
-                if question["answer_index"] != "" and current_selection == question["answer_index"]:
-                    stdscr.addstr(3, 2, f"That was right {name} - well done!")
-                    stdscr.addstr(5, 2, " _ ")
-                    stdscr.addstr(6, 2, "|n|")
-                    stdscr.addstr(7, 2, "| |____")
-                    stdscr.addstr(8, 2, "|  l___|")
-                    stdscr.addstr(9, 2, "|  l___|")
-                    stdscr.addstr(10, 2, "|__l___|")
-                    stdscr.addstr(11, 2, "")
+                if (
+                    question["answer_index"] != ""
+                    and current_selection == question["answer_index"]
+                ):
+                    show_thumbs_up(stdscr, question["options"][current_selection], name)
                 elif question["results"] != []:
-                    stdscr.addstr(3, 2, "Wrong. This is your favourite colour", curses.color_pair(3))    
+                    stdscr.addstr(
+                        3,
+                        2,
+                        "Wrong. This is your favourite colour",
+                        curses.color_pair(3),
+                    )
                 else:
                     stdscr.addstr(3, 2, f"That was wrong {name}! You lose")
                 stdscr.refresh()
