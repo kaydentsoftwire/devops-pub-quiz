@@ -1,6 +1,22 @@
 import curses
 import time
 
+# List of questions, options, and answers
+quiz_questions = [
+    {
+        "question": "What is the capital of France?",
+        "options": ["London", "Paris", "Berlin", "Madrid"],
+        "answer_index": 1,
+    },
+    {
+        "question": "What is 2 + 2?",
+        "options": ["3", "4", "5", "22"],
+        "answer_index": 1,
+        "time_limit": 10,
+    },
+    # Learners can add more questions here following the same structure
+]
+
 
 def init_curses(stdscr):
     # Disable cursor and enable color
@@ -22,22 +38,6 @@ def main(stdscr):
     stdscr.getkey()
     stdscr.clear()
     stdscr.refresh()
-
-    # List of questions, options, and answers
-    quiz_questions = [
-        {
-            "question": "What is the capital of France?",
-            "options": ["London", "Paris", "Berlin", "Madrid"],
-            "answer_index": 1,
-        },
-        {
-            "question": "What is 2 + 2?",
-            "options": ["3", "4", "5", "22"],
-            "answer_index": 1,
-            "time_limit": 10,
-        },
-        # Learners can add more questions here following the same structure
-    ]
 
     stdscr.nodelay(True)
 
