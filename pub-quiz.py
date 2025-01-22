@@ -20,10 +20,10 @@ quiz_questions = [
     },
     {
         "question": "What is your favourite colour?",
-        "options": ["A) blu", "B) yello", "C) purpl", "D) grey" ],
+        "options": ["A) blu", "B) yello", "C) purpl", "D) grey"],
         "answer_index": "",
         "results": ["exists"],
-    }
+    },
     # Learners can add more questions here following the same structure
 ]
 
@@ -140,9 +140,19 @@ def main(stdscr):
                 stdscr.addstr(
                     1, 2, f"You selected: {question['options'][current_selection]}"
                 )
-                if question["answer_index"] and current_selection == question["answer_index"]:
+                if (
+                    question["answer_index"] != ""
+                    and current_selection == question["answer_index"]
+                ):
                     show_thumbs_up(stdscr, question["options"][current_selection], name)
                 elif question["results"] != []:
+                    stdscr.addstr(
+                        3,
+                        2,
+                        "Wrong. This is your favourite colour",
+                        curses.color_pair(3),
+                    )
+                else:
                     stdscr.addstr(3, 2, f"That was wrong {name}! You lose")
                 stdscr.refresh()
                 stdscr.nodelay(False)
