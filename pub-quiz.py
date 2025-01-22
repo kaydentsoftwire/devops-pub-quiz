@@ -5,13 +5,13 @@ print("Welcome to the Pub Quiz!")
 quiz_questions = [
     {
         "question": "What is the capital of France?",
-        "options": ["A) London", "B) Paris", "C) Berlin", "D) Madrid"],
-        "answer": "B",
+        "options": ["London", "Paris", "Berlin", "Madrid"],
+        "answer": "B"
     },
     {
         "question": "What is 2 + 2?",
-        "options": ["A) 3", "B) 4", "C) 5", "D) 22"],
-        "answer": "B",
+        "options": ["3", "4", "5", "22"],
+        "answer": "B"
     },
     # Learners can add more questions here following the same structure
 ]
@@ -20,8 +20,8 @@ quiz_questions = [
 for question in quiz_questions:
     # Display the question and options
     print(question["question"])
-    for option in question["options"]:
-        print(option)
+    for index, option in enumerate(question["options"]):
+        print(chr(ord('A') + index), ':', option)
 
     # Get the user's answer
     user_answer = (
