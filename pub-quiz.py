@@ -7,16 +7,49 @@ quiz_questions = [
         "question": "What is the capital of France?",
         "options": ["London", "Paris", "Berlin", "Madrid"],
         "answer_index": 1,
+        "results": [],
     },
     {
         "question": "What is 2 + 2?",
         "options": ["3", "4", "5", "22"],
         "answer_index": 1,
         "time_limit": 10,
+        "results": [],
     },
+    {
+        "question": "What is your favourite colour?",
+        "options": ["A) blu", "B) yello", "C) purpl", "D) grey" ],
+        "answer_index": "",
+        "results": ["exists"],
+    }
     # Learners can add more questions here following the same structure
 ]
 
+# # Loop through each question
+# for question in quiz_questions:
+#     # Display the question and options
+#     print(question["question"])
+#     for option in question["options"]:
+#         print(option)
+    
+#     # Get the user's answer
+#     user_answer = input("Your answer (A, B, C, D): ").strip().upper() # Ensuring the input is uppercase for comparison
+    
+#     # Check if the answer is correct
+#     if question["answer"] != "" and user_answer == question["answer"]:
+#         print("Correct!")
+#         print(" _ ")
+#         print("|n|")
+#         print("| |____")
+#         print("|  l___|")
+#         print("|  l___|")
+#         print("|__l___|")
+#         print("")
+#     elif question["results"] != []:
+#         print(f"{'\033[96m'}Wrong. This is your favourite colour{'\033[0m'}")
+
+#     else:
+#         print(f"Wrong! The correct answer was {question['answer']}.")
 
 def init_curses(stdscr):
     # Disable cursor and enable color
@@ -24,6 +57,7 @@ def init_curses(stdscr):
     curses.start_color()
     curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
     curses.init_pair(2, curses.COLOR_WHITE, curses.COLOR_BLACK)
+    curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_CYAN)
     # Enable non-blocking input
     stdscr.nodelay(True)
 
@@ -86,7 +120,7 @@ def main(stdscr):
                 stdscr.addstr(
                     1, 2, f"You selected: {question['options'][current_selection]}"
                 )
-                if current_selection == question["answer_index"]:
+                if question["answer_index"] != "" and current_selection == question["answer_index"]:
                     stdscr.addstr(3, 2, "That was right well done!")
                     stdscr.addstr(5, 2, " _ ")
                     stdscr.addstr(6, 2, "|n|")
@@ -95,6 +129,8 @@ def main(stdscr):
                     stdscr.addstr(9, 2, "|  l___|")
                     stdscr.addstr(10, 2, "|__l___|")
                     stdscr.addstr(11, 2, "")
+                elif question["results"] != []:
+                    stdscr.addstr(3, 2, "Wrong. This is your favourite colour", curses.color_pair(3))    
                 else:
                     stdscr.addstr(3, 2, "That was wrong! You lose")
                 stdscr.refresh()
