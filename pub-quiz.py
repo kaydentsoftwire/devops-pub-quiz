@@ -29,6 +29,13 @@ for question in quiz_questions:
     # Check if the answer is correct
     if user_answer == question["answer"]:
         print("Correct!")
+        print(" _ ")
+        print("|n|")
+        print("| |____")
+        print("|  l___|")
+        print("|  l___|")
+        print("|__l___|")
+        print("")
     else:
         print(f"Wrong! The correct answer was {question['answer']}.")
 
