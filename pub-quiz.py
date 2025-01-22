@@ -25,32 +25,6 @@ quiz_questions = [
     # Learners can add more questions here following the same structure
 ]
 
-# # Loop through each question
-# for question in quiz_questions:
-#     # Display the question and options
-#     print(question["question"])
-#     for option in question["options"]:
-#         print(option)
-    
-#     # Get the user's answer
-#     user_answer = input("Your answer (A, B, C, D): ").strip().upper() # Ensuring the input is uppercase for comparison
-    
-#     # Check if the answer is correct
-#     if question["answer"] != "" and user_answer == question["answer"]:
-#         print("Correct!")
-#         print(" _ ")
-#         print("|n|")
-#         print("| |____")
-#         print("|  l___|")
-#         print("|  l___|")
-#         print("|__l___|")
-#         print("")
-#     elif question["results"] != []:
-#         print(f"{'\033[96m'}Wrong. This is your favourite colour{'\033[0m'}")
-
-#     else:
-#         print(f"Wrong! The correct answer was {question['answer']}.")
-
 def init_curses(stdscr):
     # Disable cursor and enable color
     curses.curs_set(0)
