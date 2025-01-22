@@ -20,6 +20,6 @@ jobs:
   random-fail:
     runs-on: ubuntu-latest
     steps:
-      - name: Fail 50% of the time
+      - name: Fail 10% of the time
         run: |
-          exit $RANDOM % 2
+          exit $((($RANDOM % 10) == 0))
