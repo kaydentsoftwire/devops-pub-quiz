@@ -6,12 +6,12 @@ quiz_questions = [
     {
         "question": "What is the capital of France?",
         "options": ["A) London", "B) Paris", "C) Berlin", "D) Madrid"],
-        "answer": "B"
+        "answer": "B",
     },
     {
         "question": "What is 2 + 2?",
         "options": ["A) 3", "B) 4", "C) 5", "D) 22"],
-        "answer": "B"
+        "answer": "B",
     },
     # Learners can add more questions here following the same structure
 ]
@@ -22,10 +22,12 @@ for question in quiz_questions:
     print(question["question"])
     for option in question["options"]:
         print(option)
-    
+
     # Get the user's answer
-    user_answer = input("Your answer (A, B, C, D): ").strip().upper() # Ensuring the input is uppercase for comparison
-    
+    user_answer = (
+        input("Your answer (A, B, C, D): ").strip().upper()
+    )  # Ensuring the input is uppercase for comparison
+
     # Check if the answer is correct
     if user_answer == question["answer"]:
         print("Correct!")
