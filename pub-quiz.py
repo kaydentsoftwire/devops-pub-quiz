@@ -21,9 +21,30 @@ quiz_questions = [
     },
     {
         "question": "What is your favourite colour?",
-        "options": ["A) blu", "B) yello", "C) purpl", "D) grey"],
+        "options": ["blu", "yello", "purpl", "grey"],
         "answer_index": "",
         "results": ["exists"],
+    },
+    {
+        "question": "What is 12 * 6?",
+        "options": [
+            "67",
+            "68",
+            "69",
+            "70",
+            "71",
+            "72",
+            "73",
+            "74",
+            "75",
+            "76",
+            "77",
+            "78",
+            "79",
+        ],
+        "answer_index": 2,
+        "time_limit": 5,
+        "results": [],
     },
     # Learners can add more questions here following the same structure
 ]
